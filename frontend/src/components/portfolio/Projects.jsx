@@ -1,29 +1,39 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Github } from 'lucide-react';
+import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
 import { SectionMarker } from './SectionMarker';
 import { PROJECTS } from '@/constants/testIds';
-import { PORTFOLIO_DATA } from '@/data/portfolio';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 const FILTERS = [
   { key: 'all', label: 'All', testId: PROJECTS.filterAll },
   { key: 'aiml', label: 'AI / ML', testId: PROJECTS.filterAiml },
   { key: 'llm', label: 'LLM · DevRel', testId: PROJECTS.filterLlm },
+  { key: 'other', label: 'Other', testId: PROJECTS.filterOther },
 ];
 
 export default function Projects() {
+  const { portfolio } = usePortfolio();
   const [active, setActive] = useState('all');
 
+  const all = portfolio?.projects || [];
+  const visibleFilters = useMemo(() => {
+    const keys = new Set(all.map((p) => p.categoryKey));
+    return FILTERS.filter((f) => f.key === 'all' || keys.has(f.key));
+  }, [all]);
+
   const filtered = useMemo(() => {
-    if (active === 'all') return PORTFOLIO_DATA.projects;
-    return PORTFOLIO_DATA.projects.filter((p) => p.categoryKey === active);
-  }, [active]);
+    if (active === 'all') return all;
+    return all.filter((p) => p.categoryKey === active);
+  }, [active, all]);
+
+  if (!portfolio) return null;
 
   return (
     <section
       id="projects"
       data-testid={PROJECTS.section}
-      className="relative scroll-mt-20 py-24 md:py-32 border-b border-zinc-900"
+      className="relative scroll-mt-20 py-24 md:py-32 border-b border-slate-900/80"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
         <SectionMarker
@@ -34,16 +44,16 @@ export default function Projects() {
         />
 
         <div className="flex flex-wrap gap-2 mb-10">
-          {FILTERS.map((f) => (
+          {visibleFilters.map((f) => (
             <button
               key={f.key}
               type="button"
               data-testid={f.testId}
               onClick={() => setActive(f.key)}
-              className={`px-4 py-2 rounded-md font-mono text-xs uppercase tracking-[0.18em] transition-colors border ${
+              className={`px-4 py-2 rounded-full font-mono text-xs uppercase tracking-[0.16em] transition-colors border ${
                 active === f.key
-                  ? 'bg-emerald-500 text-black border-emerald-500'
-                  : 'bg-zinc-900/40 text-zinc-400 border-zinc-800 hover:text-white hover:border-zinc-700'
+                  ? 'bg-teal-400 text-slate-950 border-teal-400'
+                  : 'bg-slate-900/40 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700'
               }`}
             >
               {f.label}
@@ -62,74 +72,101 @@ export default function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.4, delay: idx * 0.06 }}
-                className="group relative flex flex-col rounded-lg border border-zinc-800 bg-zinc-900/40 overflow-hidden hover:border-emerald-500/30 transition-colors"
+                className="group relative flex flex-col rounded-xl border border-slate-800/80 bg-slate-900/40 overflow-hidden hover:border-teal-400/40 transition-colors"
               >
                 <div className="flex items-center justify-between px-5 pt-5">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-emerald-400">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-teal-300">
                     {p.category}
                   </span>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-600">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-600">
                     {p.id}
                   </span>
                 </div>
 
                 <div className="px-5 pt-3">
-                  <h3 className="font-mono text-xl text-white tracking-tight leading-snug">
+                  <h3 className="font-sans text-xl text-white tracking-tight leading-snug">
                     {p.title}
                   </h3>
-                  <p className="mt-2 text-sm text-zinc-400">{p.subtitle}</p>
+                  {p.subtitle && <p className="mt-2 text-sm text-slate-400">{p.subtitle}</p>}
                 </div>
 
-                <div className="px-5 mt-4 text-sm text-zinc-400 leading-relaxed">
-                  {p.description}
-                </div>
-
-                <div className="grid grid-cols-3 mt-6 border-t border-zinc-800 divide-x divide-zinc-800">
-                  {p.metrics.map((m) => (
-                    <div key={m.label} className="px-3 py-4 text-center">
-                      <div className="font-mono text-sm text-emerald-400">{m.value}</div>
-                      <div className="mt-1 text-[10px] uppercase tracking-[0.16em] text-zinc-500">
-                        {m.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="px-5 py-4 border-t border-zinc-800">
-                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500 mb-2">
-                    Tech Stack
+                {p.description && (
+                  <div className="px-5 mt-4 text-sm text-slate-400 leading-relaxed">
+                    {p.description}
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2 py-0.5 rounded-md border border-zinc-800 bg-zinc-950 font-mono text-[11px] text-zinc-300"
-                      >
-                        {t}
-                      </span>
+                )}
+
+                {(p.metrics || []).length > 0 && (
+                  <div className={`grid mt-6 border-t border-slate-800/80 ${
+                    p.metrics.length === 1 ? 'grid-cols-1' : p.metrics.length === 2 ? 'grid-cols-2 divide-x divide-slate-800/80' : 'grid-cols-3 divide-x divide-slate-800/80'
+                  }`}>
+                    {p.metrics.map((m, i) => (
+                      <div key={`${m.label}-${i}`} className="px-3 py-4 text-center">
+                        <div className="font-mono text-sm text-teal-300">{m.value}</div>
+                        <div className="mt-1 text-[10px] uppercase tracking-[0.16em] text-slate-500">
+                          {m.label}
+                        </div>
+                      </div>
                     ))}
                   </div>
-                </div>
+                )}
 
-                <a
-                  href={p.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid={PROJECTS.cardLink(p.id)}
-                  className="mt-auto flex items-center justify-between px-5 py-4 border-t border-zinc-800 bg-zinc-950/60 font-mono text-xs uppercase tracking-[0.18em] text-zinc-300 hover:text-emerald-400 transition-colors"
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <Github size={14} /> View Code
-                  </span>
-                  <ArrowUpRight
-                    size={16}
-                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                  />
-                </a>
+                {(p.tech || []).length > 0 && (
+                  <div className="px-5 py-4 border-t border-slate-800/80">
+                    <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-2">
+                      Tech Stack
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {p.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="px-2 py-0.5 rounded-md border border-slate-800 bg-slate-950 font-mono text-[11px] text-slate-200"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-auto flex border-t border-slate-800/80">
+                  {p.link && (
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid={PROJECTS.cardLink(p.id)}
+                      className="flex-1 flex items-center justify-between px-5 py-4 bg-slate-950/60 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 hover:text-teal-300 transition-colors"
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <Github size={14} /> View Code
+                      </span>
+                      <ArrowUpRight
+                        size={16}
+                        className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                      />
+                    </a>
+                  )}
+                  {p.demo_url && (
+                    <a
+                      href={p.demo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid={`${PROJECTS.cardLink(p.id)}-demo`}
+                      className="flex items-center gap-2 px-5 py-4 border-l border-slate-800/80 bg-slate-950/60 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 hover:text-teal-300 transition-colors"
+                    >
+                      <ExternalLink size={14} /> Live
+                    </a>
+                  )}
+                </div>
               </motion.article>
             ))}
           </AnimatePresence>
         </div>
+
+        {filtered.length === 0 && (
+          <p className="text-sm text-slate-500 font-mono mt-6">// no projects in this category yet</p>
+        )}
       </div>
     </section>
   );
