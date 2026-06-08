@@ -14,11 +14,30 @@ from datetime import datetime, timezone
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 app = FastAPI(title="Revanth Varma Portfolio API")
+
+_cors_origins_raw = os.environ.get('CORS_ORIGINS', '*')
+_cors_origins = [o.strip() for o in _cors_origins_raw.split(',') if o.strip()]
+_allow_credentials = '*' not in _cors_origins
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=_allow_credentials,
+    allow_origins=_cors_origins or ['*'],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 api_router = APIRouter(prefix="/api")
 
 
@@ -199,19 +218,11 @@ async def get_status_checks():
 
 app.include_router(api_router)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    force=False,
 )
-logger = logging.getLogger(__name__)
 
 
 @app.on_event("shutdown")
