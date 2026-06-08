@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vejandla Revanth Varma — AI/ML Engineer · DevRel</title>
+  <meta name="description" content="Portfolio of Vejandla Revanth Varma — AI/ML Engineer & Developer Relations." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            ink: '#0b1220',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html, body { background: #0b1220; color: #e2e8f0; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+    ::selection { background: rgba(45, 212, 191, 0.35); color: #fff; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #0b1220; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 8px; }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(45,212,191,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45,212,191,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 35%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 35%, transparent 80%);
+    }
+    @keyframes caret-blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
+    .caret { display:inline-block; width:0.55ch; background:#2dd4bf; margin-left:2px; animation:caret-blink 1s steps(1) infinite; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAV -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2">
+        <span id="logo-initial" class="inline-flex items-center justify-center w-8 h-8 rounded-md border border-teal-400/60 text-teal-300 font-mono text-sm">V</span>
+        <span id="logo-handle" class="text-sm text-slate-100 font-medium">revanth.varma</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#about" class="px-3 py-2 text-sm text-slate-300 hover:text-white">About</a>
+        <a href="#stack" class="px-3 py-2 text-sm text-slate-300 hover:text-white">Stack</a>
+        <a href="#projects" class="px-3 py-2 text-sm text-slate-300 hover:text-white">Projects</a>
+        <a href="#timeline" class="px-3 py-2 text-sm text-slate-300 hover:text-white">Timeline</a>
+      </nav>
+      <a id="nav-cta" href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-400/60 text-teal-300 text-sm hover:text-teal-200 hover:border-teal-300 transition-colors">Let's talk</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28 border-b border-slate-900/80">
+    <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+    <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-teal-500/10 blur-3xl pointer-events-none"></div>
+    <div class="relative max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7">
+        <div id="status-pill" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-teal-400/40 bg-teal-400/5 font-mono text-xs text-teal-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span>
+          <span id="status-text">ai/ml · devrel</span>
+        </div>
+        <h1 id="hero-name" class="mt-6 font-extrabold text-5xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-[1.02]"></h1>
+        <p id="hero-title" class="mt-5 text-lg sm:text-xl text-slate-300"></p>
+        <p id="hero-college" class="mt-2 text-sm text-slate-400"></p>
+        <p id="hero-tagline" class="mt-6 italic text-teal-300/90"></p>
+        <p id="hero-bio" class="mt-6 max-w-2xl text-base leading-relaxed text-slate-400"></p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a id="cta-linkedin" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-teal-400 text-slate-950 font-medium hover:bg-teal-300 transition-colors">LinkedIn</a>
+          <a id="cta-github" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-700 bg-slate-900/50 text-slate-200 hover:border-slate-500 transition-colors">GitHub</a>
+          <a id="cta-resume" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-700 bg-slate-900/50 text-slate-200 hover:border-slate-500 transition-colors">Resume PDF</a>
+        </div>
+        <a id="cta-email" class="mt-8 inline-block font-mono text-sm text-slate-500 hover:text-teal-300 transition-colors"></a>
+      </div>
+      <div class="lg:col-span-5">
+        <div class="rounded-2xl border border-teal-400/30 bg-slate-950/80 overflow-hidden shadow-[0_0_60px_-30px_rgba(45,212,191,0.4)]">
+          <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800/80">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
+            </div>
+            <span class="font-mono text-xs text-slate-500">~/revanth/profile.py</span>
+            <span class="w-10"></span>
+          </div>
+          <pre id="code-block" class="font-mono text-[12.5px] sm:text-sm leading-7 p-5 sm:p-6 overflow-x-auto text-slate-200"></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-24 md:py-28 border-b border-slate-900/80">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="font-mono text-xs text-teal-300/90">// 01 — about</div>
+      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">About me.</h2>
+      <p id="about-paragraph" class="mt-6 max-w-3xl text-base sm:text-lg text-slate-300 leading-relaxed"></p>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack" class="py-24 md:py-28 border-b border-slate-900/80">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="font-mono text-xs text-teal-300/90">// 02 — toolkit</div>
+      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Core technical stack.</h2>
+      <p class="mt-4 text-slate-400 max-w-2xl">Grouped by what they do — Languages, Frameworks, and Tools.</p>
+      <div id="stack-grid" class="mt-10 grid md:grid-cols-2 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="py-24 md:py-28 border-b border-slate-900/80">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="font-mono text-xs text-teal-300/90">// 03 — selected work</div>
+      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Projects.</h2>
+      <div id="projects-grid" class="mt-10 grid lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline" class="py-24 md:py-28 border-b border-slate-900/80">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="font-mono text-xs text-teal-300/90">// 04 — timeline</div>
+      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Project timeline.</h2>
+      <ol id="timeline-list" class="relative mt-12 ml-3 border-l border-slate-800/80"></ol>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-24 md:py-28">
+    <div class="max-w-3xl mx-auto px-6 md:px-12 text-center">
+      <div class="font-mono text-xs text-teal-300/90">// 05 — get in touch</div>
+      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Ping my endpoint.</h2>
+      <p class="mt-4 text-slate-400">Open to AI/ML and DevRel roles — internships, full-time, or collaborations.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a id="contact-email" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-teal-400 text-slate-950 font-medium hover:bg-teal-300 transition-colors">Email me</a>
+        <a id="contact-linkedin" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-700 bg-slate-900/50 text-slate-200 hover:border-slate-500 transition-colors">LinkedIn</a>
+        <a id="contact-github" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-700 bg-slate-900/50 text-slate-200 hover:border-slate-500 transition-colors">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <div class="text-sm text-white"><span class="text-teal-300">~/</span><span id="footer-handle">revanth.varma</span></div>
+        <p id="footer-copy" class="mt-1 font-mono text-xs text-slate-500"></p>
+      </div>
+    </div>
+  </footer>
+
+  <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║   EDIT EVERYTHING BELOW THIS LINE — IT'S A SIMPLE FORM.  ║
+    ║   Save the file and refresh your browser — done.         ║
+    ╚══════════════════════════════════════════════════════════╝
+  -->
+  <script>
+    const MY_PORTFOLIO_DATA = {
+      profile: {
+        name: "Vejandla Revanth Varma",
+        title: "AI & ML Engineer · Developer Relations",
+        college: "Osmania University",
+        tagline: "Building Sovereign AI at population scale",
+        status: "available_for · ai/ml · devrel",
+        bio: "Final-year B.E. student in Computer Science (AI & ML), specialised in building high-performance Python-based AI pipelines and LLM-powered applications. Passionate about translating complex technical systems into accessible developer tools, tutorials, and documentation.",
+        about: "I design async vision pipelines, LLM retrieval systems, and developer tooling — then write the docs that make them usable on day one. Currently exploring sovereign / on-device AI and the DevRel craft.",
+        email: "vrevanth2004@gmail.com",
+        linkedin: "https://linkedin.com/in/vrevanthvarma",
+        github: "https://github.com/vrevanthvarma",
+        resumeUrl: "https://customer-assets.emergentagent.com/job_3bf2e9d1-2049-4dee-8872-f47d5943740e/artifacts/4yd2u0in_Revanth_Varma_Sarvam_Resume.pdf",
+      },
+
+      // Core technical stack — each group renders as a card of badges.
+      stack: [
+        { group: "Languages",            items: ["Python", "SQL", "JavaScript", "TypeScript"] },
+        { group: "Frameworks & Libraries", items: ["FastAPI", "React", "TensorFlow", "PyTorch", "scikit-learn", "NumPy", "Pandas", "MediaPipe", "OpenCV"] },
+        { group: "Cloud & Tools",        items: ["Git", "GitHub", "Jupyter", "Postman", "SQLite", "FAISS", "mBERT", "LLM APIs"] },
+        { group: "DevRel",               items: ["Technical Writing", "API Docs", "Tutorials", "Interactive Demos"] },
+      ],
+
+      projects: [
+        {
+          title: "AI-Powered Sports Talent Assessment Platform",
+          subtitle: "Real-time pose inference at the edge",
+          category: "AI / ML",
+          description: "Async Python pipeline ingesting live video, running MediaPipe + OpenCV pose inference, counting reps, and flagging anomalies — exposed through a FastAPI service.",
+          tech: ["Python", "FastAPI", "MediaPipe", "OpenCV", "SQLite", "Async"],
+          metrics: [
+            { label: "Throughput",      value: "24+ FPS" },
+            { label: "Rep Accuracy",    value: "90%" },
+            { label: "Fraud Reduction", value: "~85%" },
+          ],
+          link: "https://github.com/vrevanthvarma",
+        },
+        {
+          title: "LLM-Powered Natural Language → SQL Engine",
+          subtitle: "Schema-aware NL→SQL with sub-3s latency",
+          category: "LLM · DevRel",
+          description: "A retrieval-augmented NL→SQL service — schema-aware prompting, validation, and execution against a sandboxed DB. Shipped with a React UI and full developer docs.",
+          tech: ["Python", "FastAPI", "LLM APIs", "NLP", "React", "SQL"],
+          metrics: [
+            { label: "Time Saved",  value: "~70%" },
+            { label: "Query Types", value: "15+" },
+            { label: "Latency",     value: "< 3s" },
+          ],
+          link: "https://github.com/vrevanthvarma",
+        },
+        {
+          title: "RAG-Powered Developer Documentation Assistant",
+          subtitle: "Semantic search over multi-repo SDK docs",
+          category: "LLM · DevRel",
+          description: "On-device retrieval-augmented chat assistant indexing SDK docs across repositories with FAISS + mBERT. Answers integration questions with citations.",
+          tech: ["Python", "FAISS", "mBERT", "FastAPI", "React"],
+          metrics: [
+            { label: "Answer Accuracy", value: "94.2%" },
+            { label: "Avg Latency",     value: "1.2s" },
+            { label: "Indexed Pages",   value: "12k+" },
+          ],
+          link: "https://github.com/vrevanthvarma",
+        },
+      ],
+
+      // Vertical project + education timeline.
+      timeline: [
+        { period: "In Progress", title: "Professional AI & ML Programme",                org: "IIIT Hyderabad",                              description: "Advanced AI, NLP & Deep Learning architectures." },
+        { period: "2022 — 2026", title: "B.E. in Computer Science Engineering (AI & ML)", org: "Affiliated to Osmania University",            description: "Final year — focused on AI pipelines, async systems, applied ML." },
+        { period: "2024",        title: "Sports Talent Assessment Platform",              org: "Independent Build",                           description: "Designed, built and shipped an async vision pipeline with REST surface and admin tooling end-to-end." },
+      ],
+    };
+
+    // ── Renderer ──────────────────────────────────────────────────
+    (function render(data) {
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      const p = data.profile;
+
+      document.title = `${p.name} — ${p.title}`;
+      const last = (p.name.trim().split(/\s+/).pop() || 'dev').toLowerCase();
+      const first = (p.name.trim().split(/\s+/)[0] || 'dev').toLowerCase();
+      const handle = `${first}.${last}`.replace(/[^a-z.]/g, '') || 'dev';
+      $('logo-initial').textContent = (p.name[0] || 'V').toUpperCase();
+      $('logo-handle').textContent  = handle;
+      $('footer-handle').textContent = handle;
+      $('footer-copy').textContent  = `© ${new Date().getFullYear()} ${p.name}. Built with HTML + Tailwind.`;
+
+      $('status-text').textContent = p.status;
+      $('hero-name').textContent    = p.name;
+      $('hero-title').textContent   = p.title;
+      $('hero-college').textContent = p.college;
+      $('hero-tagline').textContent = `“${p.tagline}”`;
+      $('hero-bio').textContent     = p.bio;
+
+      $('cta-linkedin').href = p.linkedin;
+      $('cta-github').href   = p.github;
+      $('cta-resume').href   = p.resumeUrl;
+      $('cta-email').href    = `mailto:${p.email}`;
+      $('cta-email').textContent = p.email;
+      $('contact-email').href    = `mailto:${p.email}`;
+      $('contact-linkedin').href = p.linkedin;
+      $('contact-github').href   = p.github;
+
+      $('about-paragraph').textContent = p.about;
+
+      // Code block
+      $('code-block').innerHTML = [
+        `<span class="text-fuchsia-400">class</span> <span class="text-cyan-300">Engineer</span>:`,
+        `    <span class="text-teal-300">name</span>    = <span class="text-amber-300">"${esc(p.name)}"</span>`,
+        `    <span class="text-teal-300">title</span>   = <span class="text-amber-300">"${esc(p.title)}"</span>`,
+        `    <span class="text-teal-300">college</span> = <span class="text-amber-300">"${esc(p.college)}"</span>`,
+        `    <span class="text-teal-300">mission</span> = <span class="text-amber-300">"${esc(p.tagline)}"</span>`,
+        ``,
+        `    <span class="text-fuchsia-400">async def</span> <span class="text-cyan-300">build</span>(<span class="text-slate-300">self</span>, idea):`,
+        `        pipeline = <span class="text-fuchsia-400">await</span> self.<span class="text-cyan-300">design</span>(idea)`,
+        `        <span class="text-fuchsia-400">return</span> pipeline.<span class="text-cyan-300">ship</span>(<span class="text-teal-300">docs</span>=<span class="text-orange-300">True</span>)<span class="caret">&nbsp;</span>`,
+      ].join('\n');
+
+      // Stack
+      $('stack-grid').innerHTML = data.stack.map((g, i) => `
+        <div class="rounded-xl border border-slate-800/80 bg-slate-900/40 p-6">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-xl text-white tracking-tight">${esc(g.group)}</h3>
+            <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">// ${String(i + 1).padStart(2, '0')}</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            ${(g.items || []).map(item => `<span class="px-3 py-1.5 rounded-md border border-slate-800 bg-slate-950/70 font-mono text-xs text-slate-200 hover:border-teal-400/40 hover:text-teal-300 transition-colors">${esc(item)}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      // Projects
+      $('projects-grid').innerHTML = data.projects.map((pr) => {
+        const cols = (pr.metrics && pr.metrics.length) ? Math.min(pr.metrics.length, 3) : 0;
+        const gridCls = cols === 1 ? 'grid-cols-1' : cols === 2 ? 'grid-cols-2 divide-x divide-slate-800/80' : cols === 3 ? 'grid-cols-3 divide-x divide-slate-800/80' : '';
+        return `
+        <article class="flex flex-col rounded-xl border border-slate-800/80 bg-slate-900/40 overflow-hidden hover:border-teal-400/40 transition-colors">
+          <div class="flex items-center justify-between px-5 pt-5">
+            <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-teal-300">${esc(pr.category || '')}</span>
+          </div>
+          <div class="px-5 pt-3">
+            <h3 class="text-xl text-white tracking-tight leading-snug">${esc(pr.title)}</h3>
+            ${pr.subtitle ? `<p class="mt-2 text-sm text-slate-400">${esc(pr.subtitle)}</p>` : ''}
+          </div>
+          ${pr.description ? `<div class="px-5 mt-4 text-sm text-slate-400 leading-relaxed">${esc(pr.description)}</div>` : ''}
+          ${cols ? `<div class="grid ${gridCls} mt-6 border-t border-slate-800/80">${pr.metrics.map(m => `
+            <div class="px-3 py-4 text-center">
+              <div class="font-mono text-sm text-teal-300">${esc(m.value)}</div>
+              <div class="mt-1 text-[10px] uppercase tracking-[0.16em] text-slate-500">${esc(m.label)}</div>
+            </div>`).join('')}</div>` : ''}
+          ${(pr.tech && pr.tech.length) ? `<div class="px-5 py-4 border-t border-slate-800/80">
+            <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-2">Tech Stack</div>
+            <div class="flex flex-wrap gap-1.5">${pr.tech.map(t => `<span class="px-2 py-0.5 rounded-md border border-slate-800 bg-slate-950 font-mono text-[11px] text-slate-200">${esc(t)}</span>`).join('')}</div>
+          </div>` : ''}
+          ${pr.link ? `<a href="${esc(pr.link)}" target="_blank" rel="noopener" class="mt-auto flex items-center justify-between px-5 py-4 border-t border-slate-800/80 bg-slate-950/60 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 hover:text-teal-300 transition-colors">View Code <span>↗</span></a>` : ''}
+        </article>`;
+      }).join('');
+
+      // Timeline
+      $('timeline-list').innerHTML = data.timeline.map((t) => `
+        <li class="relative pl-10 pb-12 last:pb-0">
+          <span class="absolute -left-[12px] top-0 w-6 h-6 rounded-full bg-slate-950 border border-teal-400/60 ring-4 ring-slate-950 flex items-center justify-center">
+            <span class="w-1.5 h-1.5 rounded-full bg-teal-300"></span>
+          </span>
+          ${t.period ? `<div class="font-mono text-xs text-slate-500">${esc(t.period)}</div>` : ''}
+          <h3 class="mt-1.5 text-xl sm:text-2xl text-white tracking-tight">${esc(t.title)}</h3>
+          ${t.org ? `<p class="mt-1 text-sm text-slate-400">${esc(t.org)}</p>` : ''}
+          ${t.description ? `<p class="mt-3 text-sm text-slate-400 max-w-2xl leading-relaxed">${esc(t.description)}</p>` : ''}
+        </li>
+      `).join('');
+    })(MY_PORTFOLIO_DATA);
+  </script>
+</body>
+</html>
