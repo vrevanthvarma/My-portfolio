@@ -1,48 +1,44 @@
-# Vejandla Revanth Varma — Portfolio
+# Vejandla Revanth Varma — Portfolio + Admin CMS
 
 ## Problem Statement (Original)
-> https://backend-ai-devrel.preview.emergentagent.com/?utm_source=share this is a link of the portfolio so create full end to end resdy to use portfolio like this
-
-User also uploaded `Revanth_Varma_Sarvam_Resume.pdf` — content sourced from both the reference site and resume.
+> https://backend-ai-devrel.preview.emergentagent.com/?utm_source=share this is a link of the portfolio so create full end to end ready to use portfolio like this
+>
+> v2: Build a production-ready, full-stack Developer Portfolio Web Application with an integrated, no-code Admin Dashboard at /admin with password protection. Public site reads from DB; admin can edit Profile / Skills / Projects / Experience via forms; saves are instant.
 
 ## Architecture
-- **Backend**: FastAPI + Motor (MongoDB async). Endpoints under `/api`:
-  - `GET /api/health` — health check
-  - `GET /api/portfolio` — full structured portfolio data
-  - `POST /api/contact` — create contact message (Pydantic email validation)
-  - `GET /api/contact` — list submitted contact messages
-  - `POST /api/status`, `GET /api/status` — legacy status checks
-- **Frontend**: React 19 + Tailwind + Shadcn UI + Framer Motion + Sonner toasts.
-- **Database**: MongoDB collection `contact_messages` storing form submissions; `status_checks` retained.
+- Backend (FastAPI + Motor/MongoDB): JWT-protected admin CRUD over a single `portfolio` doc.
+  - Auth: POST `/api/auth/login`, GET `/api/auth/me`, bearer token (7d)
+  - Public: GET `/api/portfolio`, POST `/api/contact`
+  - Admin (Bearer required): PUT `/api/admin/portfolio` (bulk replace), `/profile`, `/skills`,
+    POST/PUT/DELETE `/projects[/{id}]`, `/experience[/{id}]`, POST `/reset`, GET `/contact`
+  - Idempotent admin seeding from `ADMIN_EMAIL` / `ADMIN_PASSWORD` env on startup; bcrypt hashes.
+- Frontend (React 19 + Tailwind + Shadcn + Framer Motion + Sonner):
+  - `PortfolioContext` fetches `/api/portfolio` and provides `refresh()`.
+  - `AuthContext` stores JWT in localStorage; axios interceptor attaches `Authorization: Bearer`.
+  - Routes: `/` (public portfolio), `/admin/login`, `/admin` (RequireAuth).
+  - Admin: tabbed UI (Profile / Skills / Projects / Experience / Security) + sticky LiveSnapshot sidebar + Save & Update button (bulk PUT).
 
 ## Design
-- Archetype: Swiss High-Contrast / Developer Terminal (dark theme, emerald accents, IDE feel).
-- Fonts: JetBrains Mono (headings/code), IBM Plex Sans (body).
-- See `/app/design_guidelines.json`.
+- Slate-navy (`#0b1220`) base, Teal-400 accents, JetBrains Mono headings/code, IBM Plex Sans body.
+- Public nav: V-initial logo, About/Projects/Experience/Contact, “Let’s talk” pill, Admin link.
+- Admin header: Back / Portfolio Admin / unsaved-pill / Preview / Reset / Save / Logout.
 
 ## What's been implemented (2026-12)
-- Sticky responsive nav with smooth-scroll + mobile menu
-- Hero with code-editor profile snippet, stats, CTAs (Explore Projects, LinkedIn, GitHub, Resume), animated grid + glow background
-- Skills section: 4 grouped cards (Languages, Frameworks & Libraries, Cloud & Tools, DevRel)
-- Projects section: 3 cards with filter (All / AI · ML / LLM · DevRel), metrics, tech badges, View Code links
-- Experience timeline: 3 items (IIIT Hyderabad, KMEC, Sports Talent project)
-- Contact section: terminal block + 3 social rows + working form (POSTs to /api/contact, sonner toasts)
-- Footer with social icons
-- All interactive elements have `data-testid` attrs in `/app/frontend/src/constants/testIds/portfolio.js`
+- Iteration 1: portfolio static MVP with contact form, sections (Hero/Skills/Projects/Experience/Contact/Footer).
+- Iteration 2: CMS-driven backend, JWT auth, admin dashboard, slate/teal redesign, contact list admin-gated.
 
-## User Personas
-- Recruiters / hiring managers (skim hero + projects + resume)
-- Engineering teams evaluating DevRel fit (read code snippets, project metrics, GitHub)
-- Collaborators (use contact form)
+## Credentials
+- `/app/memory/test_credentials.md` — admin@revanth.dev / revanth2026
 
-## Test Results (iteration 1)
-- Backend: 7/7 pytest cases pass (health, portfolio, contact CRUD, validation)
-- Frontend: 10/10 UI flows pass (hero, nav scroll, filters, contact form happy + error paths)
+## Test Results
+- Iteration 1: backend 7/7, frontend 10/10 pass.
+- Iteration 2: backend 18/18, frontend all flows pass (login, edit→save→public-reflects, logout).
 
 ## Backlog
-- P1: Admin view to read contact messages in-app
-- P1: Add Open Graph / favicon metadata + social card
+- P1: Admin inbox UI for `/api/contact` (already auth-gated; just needs a page)
+- P1: Password change form (re-uses existing seed mechanism for now)
+- P2: Image uploads (project thumbnails / avatar) — Emergent storage or external CDN
+- P2: Reorder projects/experience via drag handles
+- P2: Per-user rate limiting on /api/auth/login
 - P2: Blog / Writings section for DevRel articles
-- P2: GitHub stats / pinned repos widget (live data)
-- P2: Light/dark theme toggle (currently dark-only)
-- P2: i18n (English default)
+- P2: i18n
