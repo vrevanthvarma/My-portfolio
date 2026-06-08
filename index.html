@@ -9,335 +9,794 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            ink: '#0b1220',
-          },
-        },
-      },
+      theme: { extend: {
+        fontFamily: { sans: ['IBM Plex Sans','system-ui','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+        colors: { ink: '#0b1220' },
+      } },
     };
   </script>
   <style>
-    html, body { background: #0b1220; color: #e2e8f0; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
-    ::selection { background: rgba(45, 212, 191, 0.35); color: #fff; }
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #0b1220; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 8px; }
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(45,212,191,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(45,212,191,0.06) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 35%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 35%, transparent 80%);
-    }
-    @keyframes caret-blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
-    .caret { display:inline-block; width:0.55ch; background:#2dd4bf; margin-left:2px; animation:caret-blink 1s steps(1) infinite; }
-    html { scroll-behavior: smooth; }
+    html, body { background:#0b1220; color:#e2e8f0; font-family:'IBM Plex Sans',system-ui,sans-serif; }
+    html { scroll-behavior:smooth; }
+    ::selection { background:rgba(45,212,191,.35); color:#fff; }
+    ::-webkit-scrollbar { width:10px; }
+    ::-webkit-scrollbar-track { background:#0b1220; }
+    ::-webkit-scrollbar-thumb { background:#1e293b; border-radius:8px; }
+    .grid-bg{background-image:linear-gradient(rgba(45,212,191,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,.06) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,black 35%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,black 35%,transparent 80%)}
+    @keyframes caret-blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+    .caret{display:inline-block;width:.55ch;background:#2dd4bf;margin-left:2px;animation:caret-blink 1s steps(1) infinite}
+    .toast{animation:toast .35s ease both}
+    @keyframes toast{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .btn-primary{background:#2dd4bf;color:#0b1220;font-weight:500;border-radius:.5rem;padding:.55rem 1rem;transition:.15s}
+    .btn-primary:hover{background:#5eead4}
+    .btn-ghost{border:1px solid #334155;background:rgba(15,23,42,.5);color:#e2e8f0;border-radius:.5rem;padding:.55rem 1rem;transition:.15s}
+    .btn-ghost:hover{border-color:#64748b}
+    .btn-pill{border:1px solid rgba(45,212,191,.6);color:#5eead4;border-radius:9999px;padding:.45rem 1rem;font-size:.85rem;transition:.15s}
+    .btn-pill:hover{border-color:#2dd4bf;color:#99f6e4}
+    .input{width:100%;background:#0b1220;border:1px solid #1e293b;border-radius:.5rem;padding:.6rem .75rem;font-size:.875rem;color:#f1f5f9;transition:.15s}
+    .input:focus{outline:0;border-color:rgba(45,212,191,.6);box-shadow:0 0 0 3px rgba(45,212,191,.12)}
+    .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:#64748b}
+    .card{border:1px solid #1e293b;background:rgba(15,23,42,.4);border-radius:.75rem;padding:1.5rem}
+    .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .6rem;border:1px solid #1e293b;background:#0f172a;color:#e2e8f0;border-radius:.4rem;font-family:'JetBrains Mono',monospace;font-size:.72rem}
+    .chip-x{color:#64748b;cursor:pointer;transition:.15s}
+    .chip-x:hover{color:#fda4af}
+    .tab{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:.5rem;font-size:.875rem;border:1px solid #1e293b;background:rgba(15,23,42,.4);color:#cbd5e1;transition:.15s;cursor:pointer}
+    .tab:hover{color:#fff;border-color:#334155}
+    .tab.active{background:rgba(45,212,191,.1);border-color:rgba(45,212,191,.5);color:#5eead4}
+    .hidden{display:none!important}
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- NAV -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-2">
-        <span id="logo-initial" class="inline-flex items-center justify-center w-8 h-8 rounded-md border border-teal-400/60 text-teal-300 font-mono text-sm">V</span>
-        <span id="logo-handle" class="text-sm text-slate-100 font-medium">revanth.varma</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-1">
-        <a href="#about" class="px-3 py-2 text-sm text-slate-300 hover:text-white">About</a>
-        <a href="#stack" class="px-3 py-2 text-sm text-slate-300 hover:text-white">Stack</a>
-        <a href="#projects" class="px-3 py-2 text-sm text-slate-300 hover:text-white">Projects</a>
-        <a href="#timeline" class="px-3 py-2 text-sm text-slate-300 hover:text-white">Timeline</a>
-      </nav>
-      <a id="nav-cta" href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-400/60 text-teal-300 text-sm hover:text-teal-200 hover:border-teal-300 transition-colors">Let's talk</a>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section id="top" class="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28 border-b border-slate-900/80">
-    <div class="absolute inset-0 grid-bg pointer-events-none"></div>
-    <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-teal-500/10 blur-3xl pointer-events-none"></div>
-    <div class="relative max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-12 items-center">
-      <div class="lg:col-span-7">
-        <div id="status-pill" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-teal-400/40 bg-teal-400/5 font-mono text-xs text-teal-300">
-          <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span>
-          <span id="status-text">ai/ml · devrel</span>
+  <!-- ─────────── PUBLIC SITE ─────────── -->
+  <div id="public-app">
+    <!-- NAV -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-2">
+          <span id="logo-initial" class="inline-flex items-center justify-center w-8 h-8 rounded-md border border-teal-400/60 text-teal-300 font-mono text-sm">V</span>
+          <span id="logo-handle" class="text-sm text-slate-100 font-medium">revanth.varma</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="#about"    class="px-3 py-2 text-sm text-slate-300 hover:text-white">About</a>
+          <a href="#stack"    class="px-3 py-2 text-sm text-slate-300 hover:text-white">Stack</a>
+          <a href="#projects" class="px-3 py-2 text-sm text-slate-300 hover:text-white">Projects</a>
+          <a href="#timeline" class="px-3 py-2 text-sm text-slate-300 hover:text-white">Timeline</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="#contact" class="btn-pill">Let's talk</a>
+          <a href="#admin" class="text-xs text-slate-500 hover:text-teal-300 transition-colors hidden sm:inline-block">Admin</a>
         </div>
-        <h1 id="hero-name" class="mt-6 font-extrabold text-5xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-[1.02]"></h1>
-        <p id="hero-title" class="mt-5 text-lg sm:text-xl text-slate-300"></p>
-        <p id="hero-college" class="mt-2 text-sm text-slate-400"></p>
-        <p id="hero-tagline" class="mt-6 italic text-teal-300/90"></p>
-        <p id="hero-bio" class="mt-6 max-w-2xl text-base leading-relaxed text-slate-400"></p>
-        <div class="mt-8 flex flex-wrap items-center gap-3">
-          <a id="cta-linkedin" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-teal-400 text-slate-950 font-medium hover:bg-teal-300 transition-colors">LinkedIn</a>
-          <a id="cta-github" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-700 bg-slate-900/50 text-slate-200 hover:border-slate-500 transition-colors">GitHub</a>
-          <a id="cta-resume" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-700 bg-slate-900/50 text-slate-200 hover:border-slate-500 transition-colors">Resume PDF</a>
-        </div>
-        <a id="cta-email" class="mt-8 inline-block font-mono text-sm text-slate-500 hover:text-teal-300 transition-colors"></a>
       </div>
-      <div class="lg:col-span-5">
-        <div class="rounded-2xl border border-teal-400/30 bg-slate-950/80 overflow-hidden shadow-[0_0_60px_-30px_rgba(45,212,191,0.4)]">
-          <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800/80">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
+    </header>
+
+    <!-- HERO -->
+    <section id="top" class="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28 border-b border-slate-900/80">
+      <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+      <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-teal-500/10 blur-3xl pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-teal-400/40 bg-teal-400/5 font-mono text-xs text-teal-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span>
+            <span id="status-text">ai/ml · devrel</span>
+          </div>
+          <h1 id="hero-name"    class="mt-6 font-extrabold text-5xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-[1.02]"></h1>
+          <p  id="hero-title"   class="mt-5 text-lg sm:text-xl text-slate-300"></p>
+          <p  id="hero-college" class="mt-2 text-sm text-slate-400"></p>
+          <p  id="hero-tagline" class="mt-6 italic text-teal-300/90"></p>
+          <p  id="hero-bio"     class="mt-6 max-w-2xl text-base leading-relaxed text-slate-400"></p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a id="cta-linkedin" target="_blank" rel="noopener" class="btn-primary">LinkedIn</a>
+            <a id="cta-github"   target="_blank" rel="noopener" class="btn-ghost">GitHub</a>
+            <a id="cta-resume"   target="_blank" rel="noopener" class="btn-ghost">Resume PDF</a>
+          </div>
+          <a id="cta-email" class="mt-8 inline-block font-mono text-sm text-slate-500 hover:text-teal-300 transition-colors"></a>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl border border-teal-400/30 bg-slate-950/80 overflow-hidden shadow-[0_0_60px_-30px_rgba(45,212,191,0.4)]">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800/80">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
+              </div>
+              <span class="font-mono text-xs text-slate-500">~/revanth/profile.py</span>
+              <span class="w-10"></span>
             </div>
-            <span class="font-mono text-xs text-slate-500">~/revanth/profile.py</span>
-            <span class="w-10"></span>
+            <pre id="code-block" class="font-mono text-[12.5px] sm:text-sm leading-7 p-5 sm:p-6 overflow-x-auto text-slate-200"></pre>
           </div>
-          <pre id="code-block" class="font-mono text-[12.5px] sm:text-sm leading-7 p-5 sm:p-6 overflow-x-auto text-slate-200"></pre>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="py-24 md:py-28 border-b border-slate-900/80">
-    <div class="max-w-7xl mx-auto px-6 md:px-12">
-      <div class="font-mono text-xs text-teal-300/90">// 01 — about</div>
-      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">About me.</h2>
-      <p id="about-paragraph" class="mt-6 max-w-3xl text-base sm:text-lg text-slate-300 leading-relaxed"></p>
-    </div>
-  </section>
+    <!-- ABOUT -->
+    <section id="about" class="py-24 md:py-28 border-b border-slate-900/80">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="font-mono text-xs text-teal-300/90">// 01 — about</div>
+        <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">About me.</h2>
+        <p id="about-paragraph" class="mt-6 max-w-3xl text-base sm:text-lg text-slate-300 leading-relaxed"></p>
+      </div>
+    </section>
 
-  <!-- STACK -->
-  <section id="stack" class="py-24 md:py-28 border-b border-slate-900/80">
-    <div class="max-w-7xl mx-auto px-6 md:px-12">
-      <div class="font-mono text-xs text-teal-300/90">// 02 — toolkit</div>
-      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Core technical stack.</h2>
-      <p class="mt-4 text-slate-400 max-w-2xl">Grouped by what they do — Languages, Frameworks, and Tools.</p>
-      <div id="stack-grid" class="mt-10 grid md:grid-cols-2 gap-6"></div>
-    </div>
-  </section>
+    <!-- STACK -->
+    <section id="stack" class="py-24 md:py-28 border-b border-slate-900/80">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="font-mono text-xs text-teal-300/90">// 02 — toolkit</div>
+        <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Core technical stack.</h2>
+        <p class="mt-4 text-slate-400 max-w-2xl">Grouped by what they do — Languages, Frameworks, and Tools.</p>
+        <div id="stack-grid" class="mt-10 grid md:grid-cols-2 gap-6"></div>
+      </div>
+    </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="py-24 md:py-28 border-b border-slate-900/80">
-    <div class="max-w-7xl mx-auto px-6 md:px-12">
-      <div class="font-mono text-xs text-teal-300/90">// 03 — selected work</div>
-      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Projects.</h2>
-      <div id="projects-grid" class="mt-10 grid lg:grid-cols-3 gap-6"></div>
-    </div>
-  </section>
+    <!-- PROJECTS -->
+    <section id="projects" class="py-24 md:py-28 border-b border-slate-900/80">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="font-mono text-xs text-teal-300/90">// 03 — selected work</div>
+        <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Projects.</h2>
+        <div id="projects-grid" class="mt-10 grid lg:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
 
-  <!-- TIMELINE -->
-  <section id="timeline" class="py-24 md:py-28 border-b border-slate-900/80">
-    <div class="max-w-7xl mx-auto px-6 md:px-12">
-      <div class="font-mono text-xs text-teal-300/90">// 04 — timeline</div>
-      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Project timeline.</h2>
-      <ol id="timeline-list" class="relative mt-12 ml-3 border-l border-slate-800/80"></ol>
-    </div>
-  </section>
+    <!-- TIMELINE -->
+    <section id="timeline" class="py-24 md:py-28 border-b border-slate-900/80">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="font-mono text-xs text-teal-300/90">// 04 — timeline</div>
+        <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Project timeline.</h2>
+        <ol id="timeline-list" class="relative mt-12 ml-3 border-l border-slate-800/80"></ol>
+      </div>
+    </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="py-24 md:py-28">
-    <div class="max-w-3xl mx-auto px-6 md:px-12 text-center">
-      <div class="font-mono text-xs text-teal-300/90">// 05 — get in touch</div>
-      <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Ping my endpoint.</h2>
-      <p class="mt-4 text-slate-400">Open to AI/ML and DevRel roles — internships, full-time, or collaborations.</p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a id="contact-email" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-teal-400 text-slate-950 font-medium hover:bg-teal-300 transition-colors">Email me</a>
-        <a id="contact-linkedin" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-700 bg-slate-900/50 text-slate-200 hover:border-slate-500 transition-colors">LinkedIn</a>
-        <a id="contact-github" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-700 bg-slate-900/50 text-slate-200 hover:border-slate-500 transition-colors">GitHub</a>
+    <!-- CONTACT -->
+    <section id="contact" class="py-24 md:py-28">
+      <div class="max-w-3xl mx-auto px-6 md:px-12 text-center">
+        <div class="font-mono text-xs text-teal-300/90">// 05 — get in touch</div>
+        <h2 class="mt-3 font-extrabold text-4xl sm:text-5xl tracking-tight text-white">Ping my endpoint.</h2>
+        <p class="mt-4 text-slate-400">Open to AI/ML and DevRel roles — internships, full-time, or collaborations.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a id="contact-email"    class="btn-primary">Email me</a>
+          <a id="contact-linkedin" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+          <a id="contact-github"   target="_blank" rel="noopener" class="btn-ghost">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-10 bg-slate-950">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="text-sm text-white"><span class="text-teal-300">~/</span><span id="footer-handle">revanth.varma</span></div>
+          <p id="footer-copy" class="mt-1 font-mono text-xs text-slate-500"></p>
+        </div>
+        <a href="#admin" class="font-mono text-xs text-slate-500 hover:text-teal-300 transition-colors">// admin</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ─────────── ADMIN ─────────── -->
+  <div id="admin-app" class="hidden min-h-screen">
+    <!-- LOGIN -->
+    <div id="admin-login" class="hidden min-h-screen flex flex-col">
+      <div class="px-6 md:px-12 py-6">
+        <a href="#top" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">← Back to portfolio</a>
+      </div>
+      <div class="flex-1 flex items-center justify-center px-6">
+        <form id="login-form" class="w-full max-w-md card">
+          <div class="font-mono text-xs text-teal-300/90">// admin · login</div>
+          <h1 class="mt-2 text-3xl font-bold text-white tracking-tight">Portfolio Admin</h1>
+          <p class="mt-2 text-sm text-slate-400">Sign in to update your portfolio.</p>
+          <div class="mt-7 space-y-4">
+            <div>
+              <label class="lbl">password</label>
+              <input id="login-password" type="password" class="input mt-2" autocomplete="current-password" required />
+              <p class="mt-2 font-mono text-[11px] text-slate-500">Default password: <span class="text-teal-300">revanth2026</span> — change it in the Security tab after login.</p>
+            </div>
+          </div>
+          <p id="login-error" class="mt-4 px-3 py-2 rounded-md border border-rose-400/30 bg-rose-500/10 text-sm text-rose-300 font-mono hidden"></p>
+          <button type="submit" class="mt-6 w-full btn-primary">Sign in</button>
+        </form>
       </div>
     </div>
-  </section>
 
-  <footer class="py-10 bg-slate-950">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div>
-        <div class="text-sm text-white"><span class="text-teal-300">~/</span><span id="footer-handle">revanth.varma</span></div>
-        <p id="footer-copy" class="mt-1 font-mono text-xs text-slate-500"></p>
+    <!-- DASHBOARD -->
+    <div id="admin-dash" class="hidden">
+      <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-12 h-20 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3 sm:gap-6 min-w-0">
+            <a href="#top" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm">← Back</a>
+            <span class="text-slate-700">/</span>
+            <h1 class="text-xl sm:text-2xl font-semibold text-white tracking-tight truncate">Portfolio Admin</h1>
+            <span id="dirty-pill" class="hidden sm:inline-flex font-mono text-[10px] uppercase tracking-[0.2em] px-2 py-1 rounded-full border border-amber-400/40 text-amber-300 bg-amber-400/5 hidden">unsaved</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <a href="#top" target="_blank" class="btn-ghost text-sm">Preview</a>
+            <button id="btn-reset"  type="button" class="btn-ghost text-sm">Reset</button>
+            <button id="btn-save"   type="button" class="btn-primary text-sm">Save &amp; Update Portfolio</button>
+            <button id="btn-logout" type="button" class="btn-ghost text-sm">Logout</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-12 mt-8">
+        <div id="tabs" class="flex flex-wrap gap-2"></div>
       </div>
-    </div>
-  </footer>
 
-  <!--
-    ╔══════════════════════════════════════════════════════════╗
-    ║   EDIT EVERYTHING BELOW THIS LINE — IT'S A SIMPLE FORM.  ║
-    ║   Save the file and refresh your browser — done.         ║
-    ╚══════════════════════════════════════════════════════════╝
-  -->
+      <main class="max-w-7xl mx-auto px-6 md:px-10 lg:px-12 mt-8 pb-24 grid xl:grid-cols-12 gap-8">
+        <div id="tab-body" class="xl:col-span-8 space-y-6"></div>
+        <aside class="hidden xl:block xl:col-span-4">
+          <div class="sticky top-24 card">
+            <div class="font-mono text-xs text-teal-300/90">// live snapshot</div>
+            <h3 id="snap-name" class="mt-2 text-2xl font-semibold text-white tracking-tight"></h3>
+            <p id="snap-title" class="mt-1 text-sm text-slate-300"></p>
+            <p id="snap-college" class="mt-2 font-mono text-xs text-teal-300/80"></p>
+            <div class="mt-6 grid grid-cols-3 gap-2">
+              <div class="rounded-lg border border-slate-800/80 bg-slate-950/60 p-4 text-center"><div id="snap-skills" class="text-2xl font-bold text-white">0</div><div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">skills</div></div>
+              <div class="rounded-lg border border-slate-800/80 bg-slate-950/60 p-4 text-center"><div id="snap-projects" class="text-2xl font-bold text-white">0</div><div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">projects</div></div>
+              <div class="rounded-lg border border-slate-800/80 bg-slate-950/60 p-4 text-center"><div id="snap-timeline" class="text-2xl font-bold text-white">0</div><div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">timeline</div></div>
+            </div>
+            <button id="btn-save-sidebar" type="button" class="mt-6 w-full btn-primary">Save &amp; Update</button>
+            <p class="mt-3 text-center font-mono text-[11px] text-slate-500">changes save instantly to your browser</p>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </div>
+
+  <!-- TOASTS -->
+  <div id="toasts" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2"></div>
+
   <script>
-    const MY_PORTFOLIO_DATA = {
-      profile: {
-        name: "Vejandla Revanth Varma",
-        title: "AI & ML Engineer · Developer Relations",
-        college: "Osmania University",
-        tagline: "Building Sovereign AI at population scale",
-        status: "available_for · ai/ml · devrel",
-        bio: "Final-year B.E. student in Computer Science (AI & ML), specialised in building high-performance Python-based AI pipelines and LLM-powered applications. Passionate about translating complex technical systems into accessible developer tools, tutorials, and documentation.",
-        about: "I design async vision pipelines, LLM retrieval systems, and developer tooling — then write the docs that make them usable on day one. Currently exploring sovereign / on-device AI and the DevRel craft.",
-        email: "vrevanth2004@gmail.com",
-        linkedin: "https://linkedin.com/in/vrevanthvarma",
-        github: "https://github.com/vrevanthvarma",
-        resumeUrl: "https://customer-assets.emergentagent.com/job_3bf2e9d1-2049-4dee-8872-f47d5943740e/artifacts/4yd2u0in_Revanth_Varma_Sarvam_Resume.pdf",
-      },
+  // ────────────────────────────────────────────────────────────────
+  //  CLIENT-SIDE DATA LAYER  (localStorage = your database)
+  // ────────────────────────────────────────────────────────────────
+  const STORAGE_KEY = 'revanth_portfolio_v1';
+  const PW_KEY      = 'revanth_admin_pw_v1';
+  const SESSION_KEY = 'revanth_admin_session_v1';
+  const DEFAULT_PASSWORD = 'revanth2026';
 
-      // Core technical stack — each group renders as a card of badges.
-      stack: [
-        { group: "Languages",            items: ["Python", "SQL", "JavaScript", "TypeScript"] },
-        { group: "Frameworks & Libraries", items: ["FastAPI", "React", "TensorFlow", "PyTorch", "scikit-learn", "NumPy", "Pandas", "MediaPipe", "OpenCV"] },
-        { group: "Cloud & Tools",        items: ["Git", "GitHub", "Jupyter", "Postman", "SQLite", "FAISS", "mBERT", "LLM APIs"] },
-        { group: "DevRel",               items: ["Technical Writing", "API Docs", "Tutorials", "Interactive Demos"] },
-      ],
+  const DEFAULT_DATA = {
+    profile: {
+      name: "Vejandla Revanth Varma",
+      title: "AI & ML Engineer · Developer Relations",
+      college: "Osmania University",
+      tagline: "Building Sovereign AI at population scale",
+      status: "available_for · ai/ml · devrel",
+      bio: "Final-year B.E. student in Computer Science (AI & ML), specialised in building high-performance Python-based AI pipelines and LLM-powered applications. Passionate about translating complex technical systems into accessible developer tools, tutorials, and documentation.",
+      about: "I design async vision pipelines, LLM retrieval systems, and developer tooling — then write the docs that make them usable on day one. Currently exploring sovereign / on-device AI and the DevRel craft.",
+      email: "vrevanth2004@gmail.com",
+      linkedin: "https://linkedin.com/in/vrevanthvarma",
+      github: "https://github.com/vrevanthvarma",
+      resumeUrl: "https://customer-assets.emergentagent.com/job_3bf2e9d1-2049-4dee-8872-f47d5943740e/artifacts/4yd2u0in_Revanth_Varma_Sarvam_Resume.pdf",
+    },
+    stack: [
+      { id:'g1', group:"Languages",             items:["Python","SQL","JavaScript","TypeScript"] },
+      { id:'g2', group:"Frameworks & Libraries", items:["FastAPI","React","TensorFlow","PyTorch","scikit-learn","NumPy","Pandas","MediaPipe","OpenCV"] },
+      { id:'g3', group:"Cloud & Tools",         items:["Git","GitHub","Jupyter","Postman","SQLite","FAISS","mBERT","LLM APIs"] },
+      { id:'g4', group:"DevRel",                items:["Technical Writing","API Docs","Tutorials","Interactive Demos"] },
+    ],
+    projects: [
+      { id:'p1', title:"AI-Powered Sports Talent Assessment Platform", subtitle:"Real-time pose inference at the edge", category:"AI / ML", description:"Async Python pipeline ingesting live video, running MediaPipe + OpenCV pose inference, counting reps, and flagging anomalies — exposed through a FastAPI service.", tech:["Python","FastAPI","MediaPipe","OpenCV","SQLite","Async"], metrics:[{label:"Throughput",value:"24+ FPS"},{label:"Rep Accuracy",value:"90%"},{label:"Fraud Reduction",value:"~85%"}], link:"https://github.com/vrevanthvarma" },
+      { id:'p2', title:"LLM-Powered Natural Language → SQL Engine",     subtitle:"Schema-aware NL→SQL with sub-3s latency", category:"LLM · DevRel", description:"Retrieval-augmented NL→SQL service — schema-aware prompting, validation, and execution against a sandboxed DB. Shipped with React UI and full developer docs.", tech:["Python","FastAPI","LLM APIs","NLP","React","SQL"], metrics:[{label:"Time Saved",value:"~70%"},{label:"Query Types",value:"15+"},{label:"Latency",value:"< 3s"}], link:"https://github.com/vrevanthvarma" },
+      { id:'p3', title:"RAG-Powered Developer Documentation Assistant",  subtitle:"Semantic search over multi-repo SDK docs", category:"LLM · DevRel", description:"On-device retrieval-augmented chat assistant indexing SDK docs with FAISS + mBERT. Answers integration questions with citations.", tech:["Python","FAISS","mBERT","FastAPI","React"], metrics:[{label:"Answer Accuracy",value:"94.2%"},{label:"Avg Latency",value:"1.2s"},{label:"Indexed Pages",value:"12k+"}], link:"https://github.com/vrevanthvarma" },
+    ],
+    timeline: [
+      { id:'t1', period:"In Progress", title:"Professional AI & ML Programme",                org:"IIIT Hyderabad",                   description:"Advanced AI, NLP & Deep Learning architectures." },
+      { id:'t2', period:"2022 — 2026", title:"B.E. in Computer Science Engineering (AI & ML)", org:"Affiliated to Osmania University", description:"Final year — focused on AI pipelines, async systems, applied ML." },
+      { id:'t3', period:"2024",        title:"Sports Talent Assessment Platform",              org:"Independent Build",                description:"Designed, built and shipped an async vision pipeline with REST surface and admin tooling end-to-end." },
+    ],
+  };
 
-      projects: [
-        {
-          title: "AI-Powered Sports Talent Assessment Platform",
-          subtitle: "Real-time pose inference at the edge",
-          category: "AI / ML",
-          description: "Async Python pipeline ingesting live video, running MediaPipe + OpenCV pose inference, counting reps, and flagging anomalies — exposed through a FastAPI service.",
-          tech: ["Python", "FastAPI", "MediaPipe", "OpenCV", "SQLite", "Async"],
-          metrics: [
-            { label: "Throughput",      value: "24+ FPS" },
-            { label: "Rep Accuracy",    value: "90%" },
-            { label: "Fraud Reduction", value: "~85%" },
-          ],
-          link: "https://github.com/vrevanthvarma",
-        },
-        {
-          title: "LLM-Powered Natural Language → SQL Engine",
-          subtitle: "Schema-aware NL→SQL with sub-3s latency",
-          category: "LLM · DevRel",
-          description: "A retrieval-augmented NL→SQL service — schema-aware prompting, validation, and execution against a sandboxed DB. Shipped with a React UI and full developer docs.",
-          tech: ["Python", "FastAPI", "LLM APIs", "NLP", "React", "SQL"],
-          metrics: [
-            { label: "Time Saved",  value: "~70%" },
-            { label: "Query Types", value: "15+" },
-            { label: "Latency",     value: "< 3s" },
-          ],
-          link: "https://github.com/vrevanthvarma",
-        },
-        {
-          title: "RAG-Powered Developer Documentation Assistant",
-          subtitle: "Semantic search over multi-repo SDK docs",
-          category: "LLM · DevRel",
-          description: "On-device retrieval-augmented chat assistant indexing SDK docs across repositories with FAISS + mBERT. Answers integration questions with citations.",
-          tech: ["Python", "FAISS", "mBERT", "FastAPI", "React"],
-          metrics: [
-            { label: "Answer Accuracy", value: "94.2%" },
-            { label: "Avg Latency",     value: "1.2s" },
-            { label: "Indexed Pages",   value: "12k+" },
-          ],
-          link: "https://github.com/vrevanthvarma",
-        },
-      ],
+  const db = {
+    load(){
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return JSON.parse(JSON.stringify(DEFAULT_DATA));
+        return Object.assign(JSON.parse(JSON.stringify(DEFAULT_DATA)), JSON.parse(raw));
+      } catch { return JSON.parse(JSON.stringify(DEFAULT_DATA)); }
+    },
+    save(data){ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); },
+    reset(){ localStorage.removeItem(STORAGE_KEY); return this.load(); },
+    getPassword(){ return localStorage.getItem(PW_KEY) || DEFAULT_PASSWORD; },
+    setPassword(pw){ localStorage.setItem(PW_KEY, pw); },
+    isLoggedIn(){ return localStorage.getItem(SESSION_KEY) === '1'; },
+    setLoggedIn(v){ v ? localStorage.setItem(SESSION_KEY,'1') : localStorage.removeItem(SESSION_KEY); },
+  };
 
-      // Vertical project + education timeline.
-      timeline: [
-        { period: "In Progress", title: "Professional AI & ML Programme",                org: "IIIT Hyderabad",                              description: "Advanced AI, NLP & Deep Learning architectures." },
-        { period: "2022 — 2026", title: "B.E. in Computer Science Engineering (AI & ML)", org: "Affiliated to Osmania University",            description: "Final year — focused on AI pipelines, async systems, applied ML." },
-        { period: "2024",        title: "Sports Talent Assessment Platform",              org: "Independent Build",                           description: "Designed, built and shipped an async vision pipeline with REST surface and admin tooling end-to-end." },
-      ],
-    };
+  // ────────────────────────────────────────────────────────────────
+  //  STATE
+  // ────────────────────────────────────────────────────────────────
+  let state = db.load();
+  let draft = JSON.parse(JSON.stringify(state));
+  let currentTab = 'profile';
+  const uid = (p) => `${p}_${Math.random().toString(36).slice(2,8)}`;
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const $ = (id) => document.getElementById(id);
 
-    // ── Renderer ──────────────────────────────────────────────────
-    (function render(data) {
-      const $ = (id) => document.getElementById(id);
-      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-      const p = data.profile;
+  // ────────────────────────────────────────────────────────────────
+  //  TOASTS
+  // ────────────────────────────────────────────────────────────────
+  function toast(msg, kind='ok'){
+    const el = document.createElement('div');
+    const color = kind === 'err' ? 'border-rose-400/40 bg-rose-500/10 text-rose-200'
+              : kind === 'warn' ? 'border-amber-400/40 bg-amber-500/10 text-amber-200'
+              : 'border-teal-400/40 bg-teal-500/10 text-teal-200';
+    el.className = `toast px-4 py-2.5 rounded-md border font-mono text-xs ${color}`;
+    el.textContent = msg;
+    $('toasts').appendChild(el);
+    setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 2400);
+  }
 
-      document.title = `${p.name} — ${p.title}`;
-      const last = (p.name.trim().split(/\s+/).pop() || 'dev').toLowerCase();
-      const first = (p.name.trim().split(/\s+/)[0] || 'dev').toLowerCase();
-      const handle = `${first}.${last}`.replace(/[^a-z.]/g, '') || 'dev';
-      $('logo-initial').textContent = (p.name[0] || 'V').toUpperCase();
-      $('logo-handle').textContent  = handle;
-      $('footer-handle').textContent = handle;
-      $('footer-copy').textContent  = `© ${new Date().getFullYear()} ${p.name}. Built with HTML + Tailwind.`;
+  // ────────────────────────────────────────────────────────────────
+  //  PUBLIC RENDER
+  // ────────────────────────────────────────────────────────────────
+  function renderPublic(){
+    const p = state.profile;
+    document.title = `${p.name} — ${p.title}`;
+    const parts = (p.name || 'dev').trim().split(/\s+/);
+    const handle = `${(parts[0] || 'dev').toLowerCase()}.${(parts[parts.length - 1] || '').toLowerCase()}`.replace(/[^a-z.]/g, '') || 'dev';
+    $('logo-initial').textContent  = (p.name?.[0] || 'V').toUpperCase();
+    $('logo-handle').textContent   = handle;
+    $('footer-handle').textContent = handle;
+    $('footer-copy').textContent   = `© ${new Date().getFullYear()} ${p.name}. Built with HTML + Tailwind.`;
+    $('status-text').textContent   = p.status;
+    $('hero-name').textContent     = p.name;
+    $('hero-title').textContent    = p.title;
+    $('hero-college').textContent  = p.college;
+    $('hero-tagline').textContent  = p.tagline ? `“${p.tagline}”` : '';
+    $('hero-bio').textContent      = p.bio;
+    $('cta-linkedin').href = p.linkedin;
+    $('cta-github').href   = p.github;
+    $('cta-resume').href   = p.resumeUrl;
+    $('cta-email').href    = `mailto:${p.email}`;
+    $('cta-email').textContent = p.email;
+    $('contact-email').href    = `mailto:${p.email}`;
+    $('contact-linkedin').href = p.linkedin;
+    $('contact-github').href   = p.github;
+    $('about-paragraph').textContent = p.about;
 
-      $('status-text').textContent = p.status;
-      $('hero-name').textContent    = p.name;
-      $('hero-title').textContent   = p.title;
-      $('hero-college').textContent = p.college;
-      $('hero-tagline').textContent = `“${p.tagline}”`;
-      $('hero-bio').textContent     = p.bio;
+    $('code-block').innerHTML = [
+      `<span class="text-fuchsia-400">class</span> <span class="text-cyan-300">Engineer</span>:`,
+      `    <span class="text-teal-300">name</span>    = <span class="text-amber-300">"${esc(p.name)}"</span>`,
+      `    <span class="text-teal-300">title</span>   = <span class="text-amber-300">"${esc(p.title)}"</span>`,
+      `    <span class="text-teal-300">college</span> = <span class="text-amber-300">"${esc(p.college)}"</span>`,
+      `    <span class="text-teal-300">mission</span> = <span class="text-amber-300">"${esc(p.tagline)}"</span>`,
+      ``,
+      `    <span class="text-fuchsia-400">async def</span> <span class="text-cyan-300">build</span>(<span class="text-slate-300">self</span>, idea):`,
+      `        pipeline = <span class="text-fuchsia-400">await</span> self.<span class="text-cyan-300">design</span>(idea)`,
+      `        <span class="text-fuchsia-400">return</span> pipeline.<span class="text-cyan-300">ship</span>(<span class="text-teal-300">docs</span>=<span class="text-orange-300">True</span>)<span class="caret">&nbsp;</span>`,
+    ].join('\n');
 
-      $('cta-linkedin').href = p.linkedin;
-      $('cta-github').href   = p.github;
-      $('cta-resume').href   = p.resumeUrl;
-      $('cta-email').href    = `mailto:${p.email}`;
-      $('cta-email').textContent = p.email;
-      $('contact-email').href    = `mailto:${p.email}`;
-      $('contact-linkedin').href = p.linkedin;
-      $('contact-github').href   = p.github;
+    $('stack-grid').innerHTML = state.stack.map((g, i) => `
+      <div class="card">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="text-xl text-white tracking-tight">${esc(g.group)}</h3>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">// ${String(i+1).padStart(2,'0')}</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          ${(g.items||[]).map(it => `<span class="chip">${esc(it)}</span>`).join('')}
+        </div>
+      </div>`).join('');
 
-      $('about-paragraph').textContent = p.about;
+    $('projects-grid').innerHTML = state.projects.map((pr) => {
+      const cols = (pr.metrics||[]).length;
+      const grid = cols === 1 ? 'grid-cols-1' : cols === 2 ? 'grid-cols-2 divide-x divide-slate-800/80' : cols >= 3 ? 'grid-cols-3 divide-x divide-slate-800/80' : '';
+      return `
+      <article class="flex flex-col rounded-xl border border-slate-800/80 bg-slate-900/40 overflow-hidden hover:border-teal-400/40 transition-colors">
+        <div class="flex items-center justify-between px-5 pt-5"><span class="font-mono text-[10px] uppercase tracking-[0.18em] text-teal-300">${esc(pr.category||'')}</span></div>
+        <div class="px-5 pt-3"><h3 class="text-xl text-white tracking-tight leading-snug">${esc(pr.title)}</h3>${pr.subtitle ? `<p class="mt-2 text-sm text-slate-400">${esc(pr.subtitle)}</p>` : ''}</div>
+        ${pr.description ? `<div class="px-5 mt-4 text-sm text-slate-400 leading-relaxed">${esc(pr.description)}</div>` : ''}
+        ${cols ? `<div class="grid ${grid} mt-6 border-t border-slate-800/80">${pr.metrics.map(m => `<div class="px-3 py-4 text-center"><div class="font-mono text-sm text-teal-300">${esc(m.value)}</div><div class="mt-1 text-[10px] uppercase tracking-[0.16em] text-slate-500">${esc(m.label)}</div></div>`).join('')}</div>` : ''}
+        ${(pr.tech||[]).length ? `<div class="px-5 py-4 border-t border-slate-800/80"><div class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-2">Tech Stack</div><div class="flex flex-wrap gap-1.5">${pr.tech.map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div></div>` : ''}
+        ${pr.link ? `<a href="${esc(pr.link)}" target="_blank" rel="noopener" class="mt-auto flex items-center justify-between px-5 py-4 border-t border-slate-800/80 bg-slate-950/60 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 hover:text-teal-300 transition-colors">View Code <span>↗</span></a>` : ''}
+      </article>`;
+    }).join('');
 
-      // Code block
-      $('code-block').innerHTML = [
-        `<span class="text-fuchsia-400">class</span> <span class="text-cyan-300">Engineer</span>:`,
-        `    <span class="text-teal-300">name</span>    = <span class="text-amber-300">"${esc(p.name)}"</span>`,
-        `    <span class="text-teal-300">title</span>   = <span class="text-amber-300">"${esc(p.title)}"</span>`,
-        `    <span class="text-teal-300">college</span> = <span class="text-amber-300">"${esc(p.college)}"</span>`,
-        `    <span class="text-teal-300">mission</span> = <span class="text-amber-300">"${esc(p.tagline)}"</span>`,
-        ``,
-        `    <span class="text-fuchsia-400">async def</span> <span class="text-cyan-300">build</span>(<span class="text-slate-300">self</span>, idea):`,
-        `        pipeline = <span class="text-fuchsia-400">await</span> self.<span class="text-cyan-300">design</span>(idea)`,
-        `        <span class="text-fuchsia-400">return</span> pipeline.<span class="text-cyan-300">ship</span>(<span class="text-teal-300">docs</span>=<span class="text-orange-300">True</span>)<span class="caret">&nbsp;</span>`,
-      ].join('\n');
+    $('timeline-list').innerHTML = state.timeline.map((t) => `
+      <li class="relative pl-10 pb-12 last:pb-0">
+        <span class="absolute -left-[12px] top-0 w-6 h-6 rounded-full bg-slate-950 border border-teal-400/60 ring-4 ring-slate-950 flex items-center justify-center"><span class="w-1.5 h-1.5 rounded-full bg-teal-300"></span></span>
+        ${t.period ? `<div class="font-mono text-xs text-slate-500">${esc(t.period)}</div>` : ''}
+        <h3 class="mt-1.5 text-xl sm:text-2xl text-white tracking-tight">${esc(t.title)}</h3>
+        ${t.org ? `<p class="mt-1 text-sm text-slate-400">${esc(t.org)}</p>` : ''}
+        ${t.description ? `<p class="mt-3 text-sm text-slate-400 max-w-2xl leading-relaxed">${esc(t.description)}</p>` : ''}
+      </li>`).join('');
+  }
 
-      // Stack
-      $('stack-grid').innerHTML = data.stack.map((g, i) => `
-        <div class="rounded-xl border border-slate-800/80 bg-slate-900/40 p-6">
-          <div class="flex items-center justify-between mb-5">
-            <h3 class="text-xl text-white tracking-tight">${esc(g.group)}</h3>
-            <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">// ${String(i + 1).padStart(2, '0')}</span>
+  // ────────────────────────────────────────────────────────────────
+  //  ADMIN — TABS
+  // ────────────────────────────────────────────────────────────────
+  const TABS = [
+    { key:'profile',    label:'Profile' },
+    { key:'skills',     label:'Skills' },
+    { key:'projects',   label:'Projects' },
+    { key:'experience', label:'Experience' },
+    { key:'security',   label:'Security' },
+  ];
+
+  function renderTabs(){
+    $('tabs').innerHTML = TABS.map(t => `<button class="tab ${currentTab===t.key?'active':''}" data-tab="${t.key}">${t.label}</button>`).join('');
+    $('tabs').querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => { currentTab = b.dataset.tab; renderTabs(); renderTabBody(); }));
+  }
+
+  function dirty(){ return JSON.stringify(state) !== JSON.stringify(draft); }
+  function renderSnapshot(){
+    $('snap-name').textContent    = draft.profile.name || 'Your name';
+    $('snap-title').textContent   = draft.profile.title || 'Your title';
+    $('snap-college').textContent = draft.profile.college || 'Your college';
+    $('snap-skills').textContent  = (draft.stack||[]).reduce((a,g) => a + (g.items?.length || 0), 0);
+    $('snap-projects').textContent = (draft.projects||[]).length;
+    $('snap-timeline').textContent = (draft.timeline||[]).length;
+    $('dirty-pill').classList.toggle('hidden', !dirty());
+  }
+
+  function renderTabBody(){
+    const body = $('tab-body');
+    if (currentTab === 'profile')    body.innerHTML = renderProfile();
+    if (currentTab === 'skills')     body.innerHTML = renderSkills();
+    if (currentTab === 'projects')   body.innerHTML = renderProjects();
+    if (currentTab === 'experience') body.innerHTML = renderTimeline();
+    if (currentTab === 'security')   body.innerHTML = renderSecurity();
+    bindTabBody();
+    renderSnapshot();
+  }
+
+  function renderProfile(){
+    const p = draft.profile;
+    const F = (id, label, val, type='text') =>
+      `<div><label class="lbl">${label}</label><input data-bind="profile.${id}" type="${type}" class="input mt-2" value="${esc(val||'')}" /></div>`;
+    return `
+      <div class="card">
+        <h3 class="text-xl font-semibold text-white">Profile</h3>
+        <p class="mt-1 text-sm text-slate-400 mb-6">The hero section — what visitors see first.</p>
+        <div class="grid sm:grid-cols-2 gap-5">
+          ${F('name','Full name', p.name)}
+          ${F('title','Title', p.title)}
+          ${F('tagline','Tagline', p.tagline)}
+          ${F('college','College / University', p.college)}
+          ${F('status','Status pill', p.status)}
+          ${F('email','Email', p.email, 'email')}
+          ${F('linkedin','LinkedIn URL', p.linkedin)}
+          ${F('github','GitHub URL', p.github)}
+          <div class="sm:col-span-2">${F('resumeUrl','Resume PDF URL', p.resumeUrl).replace('<div>','').replace(/<\/div>$/,'')}</div>
+          <div class="sm:col-span-2">
+            <label class="lbl">Bio paragraph (hero)</label>
+            <textarea data-bind="profile.bio" rows="4" class="input mt-2" style="resize:none">${esc(p.bio||'')}</textarea>
           </div>
-          <div class="flex flex-wrap gap-2">
-            ${(g.items || []).map(item => `<span class="px-3 py-1.5 rounded-md border border-slate-800 bg-slate-950/70 font-mono text-xs text-slate-200 hover:border-teal-400/40 hover:text-teal-300 transition-colors">${esc(item)}</span>`).join('')}
+          <div class="sm:col-span-2">
+            <label class="lbl">About paragraph (about section)</label>
+            <textarea data-bind="profile.about" rows="5" class="input mt-2" style="resize:none">${esc(p.about||'')}</textarea>
           </div>
         </div>
-      `).join('');
+      </div>`;
+  }
 
-      // Projects
-      $('projects-grid').innerHTML = data.projects.map((pr) => {
-        const cols = (pr.metrics && pr.metrics.length) ? Math.min(pr.metrics.length, 3) : 0;
-        const gridCls = cols === 1 ? 'grid-cols-1' : cols === 2 ? 'grid-cols-2 divide-x divide-slate-800/80' : cols === 3 ? 'grid-cols-3 divide-x divide-slate-800/80' : '';
-        return `
-        <article class="flex flex-col rounded-xl border border-slate-800/80 bg-slate-900/40 overflow-hidden hover:border-teal-400/40 transition-colors">
-          <div class="flex items-center justify-between px-5 pt-5">
-            <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-teal-300">${esc(pr.category || '')}</span>
-          </div>
-          <div class="px-5 pt-3">
-            <h3 class="text-xl text-white tracking-tight leading-snug">${esc(pr.title)}</h3>
-            ${pr.subtitle ? `<p class="mt-2 text-sm text-slate-400">${esc(pr.subtitle)}</p>` : ''}
-          </div>
-          ${pr.description ? `<div class="px-5 mt-4 text-sm text-slate-400 leading-relaxed">${esc(pr.description)}</div>` : ''}
-          ${cols ? `<div class="grid ${gridCls} mt-6 border-t border-slate-800/80">${pr.metrics.map(m => `
-            <div class="px-3 py-4 text-center">
-              <div class="font-mono text-sm text-teal-300">${esc(m.value)}</div>
-              <div class="mt-1 text-[10px] uppercase tracking-[0.16em] text-slate-500">${esc(m.label)}</div>
-            </div>`).join('')}</div>` : ''}
-          ${(pr.tech && pr.tech.length) ? `<div class="px-5 py-4 border-t border-slate-800/80">
-            <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-2">Tech Stack</div>
-            <div class="flex flex-wrap gap-1.5">${pr.tech.map(t => `<span class="px-2 py-0.5 rounded-md border border-slate-800 bg-slate-950 font-mono text-[11px] text-slate-200">${esc(t)}</span>`).join('')}</div>
-          </div>` : ''}
-          ${pr.link ? `<a href="${esc(pr.link)}" target="_blank" rel="noopener" class="mt-auto flex items-center justify-between px-5 py-4 border-t border-slate-800/80 bg-slate-950/60 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 hover:text-teal-300 transition-colors">View Code <span>↗</span></a>` : ''}
-        </article>`;
-      }).join('');
+  function renderSkills(){
+    return `
+      <div class="card">
+        <div class="flex items-start justify-between gap-4 mb-6">
+          <div><h3 class="text-xl font-semibold text-white">Skills</h3><p class="mt-1 text-sm text-slate-400">Group your stack — type a skill, press Enter, it becomes a badge.</p></div>
+          <button type="button" data-action="add-group" class="btn-primary text-sm">+ Add group</button>
+        </div>
+        <div class="space-y-5">
+          ${draft.stack.map((g, gi) => `
+            <div class="rounded-lg border border-slate-800/80 bg-slate-950/40 p-5">
+              <div class="flex items-center justify-between gap-3 mb-4">
+                <input data-bind-stack="${gi}.group" class="input max-w-xs" value="${esc(g.group||'')}" />
+                <button type="button" data-action="del-group" data-gi="${gi}" class="text-xs text-rose-300 hover:text-rose-200">Remove group</button>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-4">
+                ${(g.items||[]).map((it, i) => `<span class="chip">${esc(it)}<span class="chip-x" data-action="del-skill" data-gi="${gi}" data-i="${i}">✕</span></span>`).join('') || '<span class="font-mono text-xs text-slate-500">// no skills yet</span>'}
+              </div>
+              <div class="flex gap-2">
+                <input data-skill-input="${gi}" class="input" placeholder="Add a skill and press Enter" />
+                <button type="button" data-action="add-skill" data-gi="${gi}" class="btn-ghost text-sm">Add</button>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
 
-      // Timeline
-      $('timeline-list').innerHTML = data.timeline.map((t) => `
-        <li class="relative pl-10 pb-12 last:pb-0">
-          <span class="absolute -left-[12px] top-0 w-6 h-6 rounded-full bg-slate-950 border border-teal-400/60 ring-4 ring-slate-950 flex items-center justify-center">
-            <span class="w-1.5 h-1.5 rounded-full bg-teal-300"></span>
-          </span>
-          ${t.period ? `<div class="font-mono text-xs text-slate-500">${esc(t.period)}</div>` : ''}
-          <h3 class="mt-1.5 text-xl sm:text-2xl text-white tracking-tight">${esc(t.title)}</h3>
-          ${t.org ? `<p class="mt-1 text-sm text-slate-400">${esc(t.org)}</p>` : ''}
-          ${t.description ? `<p class="mt-3 text-sm text-slate-400 max-w-2xl leading-relaxed">${esc(t.description)}</p>` : ''}
-        </li>
-      `).join('');
-    })(MY_PORTFOLIO_DATA);
+  function renderProjects(){
+    return `
+      <div class="card">
+        <div class="flex items-start justify-between gap-4">
+          <div><h3 class="text-xl font-semibold text-white">Projects</h3><p class="mt-1 text-sm text-slate-400">Add, edit, reorder, or remove project cards.</p></div>
+          <button type="button" data-action="add-project" class="btn-primary text-sm">+ Add project</button>
+        </div>
+        <p class="mt-2 font-mono text-xs text-slate-500">${draft.projects.length} projects configured.</p>
+      </div>
+      ${draft.projects.map((pr, pi) => `
+        <div class="card space-y-5">
+          <div class="flex items-start justify-between gap-4">
+            <h4 class="text-lg font-semibold text-white">Project · ${esc(pr.title || 'Untitled')}</h4>
+            <button type="button" data-action="del-project" data-pi="${pi}" class="text-sm text-rose-300 hover:text-rose-200">Delete</button>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="sm:col-span-2"><label class="lbl">Title</label><input data-bind-project="${pi}.title" class="input mt-2" value="${esc(pr.title||'')}" /></div>
+            <div><label class="lbl">Subtitle</label><input data-bind-project="${pi}.subtitle" class="input mt-2" value="${esc(pr.subtitle||'')}" /></div>
+            <div><label class="lbl">Category</label><input data-bind-project="${pi}.category" class="input mt-2" value="${esc(pr.category||'')}" placeholder="AI / ML, LLM · DevRel, …" /></div>
+            <div class="sm:col-span-2"><label class="lbl">Description</label><textarea data-bind-project="${pi}.description" rows="4" class="input mt-2" style="resize:none">${esc(pr.description||'')}</textarea></div>
+            <div><label class="lbl">GitHub URL</label><input data-bind-project="${pi}.link" class="input mt-2" value="${esc(pr.link||'')}" /></div>
+          </div>
+          <div>
+            <label class="lbl">Performance metrics</label>
+            <div class="mt-2 space-y-2">
+              ${(pr.metrics||[]).map((m, mi) => `
+                <div class="grid grid-cols-[1fr_1fr_auto] gap-2">
+                  <input data-bind-metric="${pi}.${mi}.label" class="input" value="${esc(m.label||'')}" placeholder="Throughput" />
+                  <input data-bind-metric="${pi}.${mi}.value" class="input" value="${esc(m.value||'')}" placeholder="24+ FPS" />
+                  <button type="button" data-action="del-metric" data-pi="${pi}" data-mi="${mi}" class="btn-ghost text-sm">✕</button>
+                </div>`).join('')}
+              <button type="button" data-action="add-metric" data-pi="${pi}" class="btn-ghost text-sm">+ Add metric</button>
+            </div>
+          </div>
+          <div>
+            <label class="lbl">Tech stack</label>
+            <div class="mt-2 flex flex-wrap gap-2 mb-2">
+              ${(pr.tech||[]).map((t, ti) => `<span class="chip">${esc(t)}<span class="chip-x" data-action="del-tech" data-pi="${pi}" data-ti="${ti}">✕</span></span>`).join('')}
+            </div>
+            <div class="flex gap-2">
+              <input data-tech-input="${pi}" class="input" placeholder="Add a tech (e.g. PyTorch) and press Enter" />
+              <button type="button" data-action="add-tech" data-pi="${pi}" class="btn-ghost text-sm">Add</button>
+            </div>
+          </div>
+        </div>`).join('')}`;
+  }
+
+  function renderTimeline(){
+    return `
+      <div class="card">
+        <div class="flex items-start justify-between gap-4">
+          <div><h3 class="text-xl font-semibold text-white">Experience timeline</h3><p class="mt-1 text-sm text-slate-400">Education, internships, or major project lifecycles.</p></div>
+          <button type="button" data-action="add-timeline" class="btn-primary text-sm">+ Add entry</button>
+        </div>
+        <p class="mt-2 font-mono text-xs text-slate-500">${draft.timeline.length} entries configured.</p>
+      </div>
+      ${draft.timeline.map((t, ti) => `
+        <div class="card space-y-5">
+          <div class="flex items-start justify-between gap-4">
+            <h4 class="text-lg font-semibold text-white">Entry · ${esc(t.title || 'Untitled')}</h4>
+            <button type="button" data-action="del-timeline" data-ti="${ti}" class="text-sm text-rose-300 hover:text-rose-200">Delete</button>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div><label class="lbl">Period</label><input data-bind-timeline="${ti}.period" class="input mt-2" value="${esc(t.period||'')}" placeholder="2022 — 2026" /></div>
+            <div><label class="lbl">Organisation</label><input data-bind-timeline="${ti}.org" class="input mt-2" value="${esc(t.org||'')}" /></div>
+            <div class="sm:col-span-2"><label class="lbl">Title</label><input data-bind-timeline="${ti}.title" class="input mt-2" value="${esc(t.title||'')}" /></div>
+            <div class="sm:col-span-2"><label class="lbl">Description</label><textarea data-bind-timeline="${ti}.description" rows="3" class="input mt-2" style="resize:none">${esc(t.description||'')}</textarea></div>
+          </div>
+        </div>`).join('')}`;
+  }
+
+  function renderSecurity(){
+    return `
+      <div class="card">
+        <h3 class="text-xl font-semibold text-white">Security</h3>
+        <p class="mt-1 text-sm text-slate-400 mb-6">Change your admin password. Stored locally in your browser.</p>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div><label class="lbl">Current password</label><input id="pw-current" type="password" class="input mt-2" /></div>
+          <div><label class="lbl">New password</label><input id="pw-new" type="password" class="input mt-2" /></div>
+        </div>
+        <button id="pw-save" type="button" class="mt-5 btn-primary text-sm">Update password</button>
+      </div>
+      <div class="card border-rose-400/30 bg-rose-500/5">
+        <h4 class="text-lg text-rose-200 font-semibold">Danger zone</h4>
+        <p class="mt-1 text-sm text-rose-200/70">Reset all portfolio content to the original defaults. Cannot be undone.</p>
+        <button id="btn-reset-defaults" type="button" class="mt-4 btn-ghost text-sm">Reset to defaults</button>
+      </div>`;
+  }
+
+  function bindTabBody(){
+    // Generic field binding
+    $('tab-body').querySelectorAll('[data-bind]').forEach(el => {
+      el.addEventListener('input', () => {
+        const [section, key] = el.dataset.bind.split('.');
+        draft[section][key] = el.value;
+        renderSnapshot();
+      });
+    });
+    $('tab-body').querySelectorAll('[data-bind-stack]').forEach(el => {
+      el.addEventListener('input', () => {
+        const [gi, key] = el.dataset.bindStack.split('.');
+        draft.stack[+gi][key] = el.value;
+        renderSnapshot();
+      });
+    });
+    $('tab-body').querySelectorAll('[data-bind-project]').forEach(el => {
+      el.addEventListener('input', () => {
+        const [pi, key] = el.dataset.bindProject.split('.');
+        draft.projects[+pi][key] = el.value;
+        renderSnapshot();
+      });
+    });
+    $('tab-body').querySelectorAll('[data-bind-metric]').forEach(el => {
+      el.addEventListener('input', () => {
+        const [pi, mi, key] = el.dataset.bindMetric.split('.');
+        draft.projects[+pi].metrics[+mi][key] = el.value;
+      });
+    });
+    $('tab-body').querySelectorAll('[data-bind-timeline]').forEach(el => {
+      el.addEventListener('input', () => {
+        const [ti, key] = el.dataset.bindTimeline.split('.');
+        draft.timeline[+ti][key] = el.value;
+        renderSnapshot();
+      });
+    });
+
+    // Skill enter-to-add
+    $('tab-body').querySelectorAll('[data-skill-input]').forEach(el => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter'){ e.preventDefault(); addSkill(+el.dataset.skillInput, el); }
+      });
+    });
+    // Tech enter-to-add
+    $('tab-body').querySelectorAll('[data-tech-input]').forEach(el => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter'){ e.preventDefault(); addTech(+el.dataset.techInput, el); }
+      });
+    });
+
+    // Actions
+    $('tab-body').querySelectorAll('[data-action]').forEach(b => b.addEventListener('click', () => handleAction(b)));
+
+    // Security tab handlers
+    const pwBtn = $('pw-save');
+    if (pwBtn) pwBtn.addEventListener('click', updatePassword);
+    const rd = $('btn-reset-defaults');
+    if (rd) rd.addEventListener('click', resetDefaults);
+  }
+
+  function addSkill(gi, input){
+    const v = (input.value || '').trim();
+    if (!v) return;
+    draft.stack[gi].items = [...(draft.stack[gi].items||[]), v];
+    input.value = '';
+    renderTabBody();
+  }
+  function addTech(pi, input){
+    const v = (input.value || '').trim();
+    if (!v) return;
+    draft.projects[pi].tech = [...(draft.projects[pi].tech||[]), v];
+    input.value = '';
+    renderTabBody();
+  }
+
+  function handleAction(b){
+    const a = b.dataset.action;
+    if (a === 'add-group'){
+      const name = prompt('Name of the new skill group?');
+      if (!name) return;
+      draft.stack.push({ id: uid('g'), group: name, items: [] });
+      renderTabBody();
+    } else if (a === 'del-group'){
+      if (!confirm('Remove this skill group?')) return;
+      draft.stack.splice(+b.dataset.gi, 1);
+      renderTabBody();
+    } else if (a === 'add-skill'){
+      const gi = +b.dataset.gi;
+      addSkill(gi, document.querySelector(`[data-skill-input="${gi}"]`));
+    } else if (a === 'del-skill'){
+      draft.stack[+b.dataset.gi].items.splice(+b.dataset.i, 1);
+      renderTabBody();
+    } else if (a === 'add-project'){
+      draft.projects.push({ id: uid('p'), title:'New project', subtitle:'', category:'AI / ML', description:'', tech:[], metrics:[], link:'' });
+      renderTabBody();
+    } else if (a === 'del-project'){
+      if (!confirm('Delete this project?')) return;
+      draft.projects.splice(+b.dataset.pi, 1);
+      renderTabBody();
+    } else if (a === 'add-metric'){
+      draft.projects[+b.dataset.pi].metrics.push({ label:'', value:'' });
+      renderTabBody();
+    } else if (a === 'del-metric'){
+      draft.projects[+b.dataset.pi].metrics.splice(+b.dataset.mi, 1);
+      renderTabBody();
+    } else if (a === 'add-tech'){
+      const pi = +b.dataset.pi;
+      addTech(pi, document.querySelector(`[data-tech-input="${pi}"]`));
+    } else if (a === 'del-tech'){
+      draft.projects[+b.dataset.pi].tech.splice(+b.dataset.ti, 1);
+      renderTabBody();
+    } else if (a === 'add-timeline'){
+      draft.timeline.push({ id: uid('t'), period:'', title:'', org:'', description:'' });
+      renderTabBody();
+    } else if (a === 'del-timeline'){
+      if (!confirm('Delete this entry?')) return;
+      draft.timeline.splice(+b.dataset.ti, 1);
+      renderTabBody();
+    }
+  }
+
+  function updatePassword(){
+    const cur = $('pw-current').value;
+    const nw  = $('pw-new').value;
+    if (cur !== db.getPassword()) return toast('Current password is incorrect.', 'err');
+    if (!nw || nw.length < 4) return toast('New password must be at least 4 characters.', 'err');
+    db.setPassword(nw);
+    $('pw-current').value = ''; $('pw-new').value = '';
+    toast('Password updated.');
+  }
+
+  function resetDefaults(){
+    if (!confirm('Reset portfolio to defaults? This cannot be undone.')) return;
+    state = db.reset();
+    draft = JSON.parse(JSON.stringify(state));
+    renderPublic(); renderTabBody();
+    toast('Portfolio reset to defaults.');
+  }
+
+  // ────────────────────────────────────────────────────────────────
+  //  SAVE / RESET (draft → state)
+  // ────────────────────────────────────────────────────────────────
+  function save(){
+    state = JSON.parse(JSON.stringify(draft));
+    db.save(state);
+    renderPublic();
+    renderSnapshot();
+    toast('Portfolio updated. Changes are live.');
+  }
+  function resetDraft(){
+    if (dirty() && !confirm('Discard unsaved changes?')) return;
+    draft = JSON.parse(JSON.stringify(state));
+    renderTabBody();
+    toast('Reset to last saved state.', 'warn');
+  }
+
+  // ────────────────────────────────────────────────────────────────
+  //  ROUTING (hash-based, GH Pages friendly)
+  // ────────────────────────────────────────────────────────────────
+  function route(){
+    const h = location.hash;
+    const inAdmin = h === '#admin' || h === '#admin/login';
+    $('public-app').classList.toggle('hidden', inAdmin);
+    $('admin-app').classList.toggle('hidden', !inAdmin);
+    if (!inAdmin) return;
+
+    if (!db.isLoggedIn()){
+      $('admin-login').classList.remove('hidden');
+      $('admin-dash').classList.add('hidden');
+      $('login-password').focus();
+    } else {
+      $('admin-login').classList.add('hidden');
+      $('admin-dash').classList.remove('hidden');
+      // Re-sync draft on entering dashboard.
+      draft = JSON.parse(JSON.stringify(state));
+      renderTabs(); renderTabBody();
+    }
+  }
+
+  // ────────────────────────────────────────────────────────────────
+  //  BIND EVERYTHING
+  // ────────────────────────────────────────────────────────────────
+  function init(){
+    renderPublic();
+
+    $('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pw = $('login-password').value;
+      const err = $('login-error');
+      if (pw === db.getPassword()){
+        db.setLoggedIn(true);
+        $('login-password').value = '';
+        err.classList.add('hidden');
+        route();
+        toast('Welcome back, admin');
+      } else {
+        err.textContent = 'Invalid password.';
+        err.classList.remove('hidden');
+      }
+    });
+
+    $('btn-save').addEventListener('click', save);
+    $('btn-save-sidebar').addEventListener('click', save);
+    $('btn-reset').addEventListener('click', resetDraft);
+    $('btn-logout').addEventListener('click', () => {
+      db.setLoggedIn(false);
+      location.hash = '#top';
+      toast('Logged out.', 'warn');
+    });
+
+    window.addEventListener('hashchange', route);
+    route();
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
