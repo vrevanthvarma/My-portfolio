@@ -1,0 +1,129 @@
+{
+  "theme": "dark",
+  "archetype": "Swiss High-Contrast / Developer Terminal",
+  "typography": {
+    "headings": {
+      "fontFamily": "JetBrains Mono",
+      "weights": ["400", "700"],
+      "usage": "H1-H4, Code Snippets, Section Markers (// 01)"
+    },
+    "body": {
+      "fontFamily": "IBM Plex Sans",
+      "weights": ["400", "500"],
+      "usage": "Paragraphs, Descriptions, UI Text"
+    },
+    "sizes": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight",
+      "h3": "text-xl sm:text-2xl tracking-tight",
+      "h4": "text-lg sm:text-xl",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm",
+      "overline": "text-xs uppercase tracking-[0.2em]"
+    }
+  },
+  "colors": {
+    "background": {
+      "base": "bg-zinc-950",
+      "surface": "bg-zinc-900",
+      "surface_hover": "bg-zinc-800"
+    },
+    "text": {
+      "primary": "text-white",
+      "secondary": "text-zinc-400",
+      "accent": "text-emerald-400"
+    },
+    "border": {
+      "default": "border-zinc-800",
+      "hover": "border-zinc-700",
+      "active": "border-emerald-500/50"
+    },
+    "status": {
+      "success": "text-emerald-400 bg-emerald-400/10",
+      "warning": "text-amber-400 bg-amber-400/10",
+      "info": "text-cyan-400 bg-cyan-400/10"
+    }
+  },
+  "layout": {
+    "spacing": {
+      "section_y": "py-24 md:py-32",
+      "container_x": "px-6 md:px-12 lg:px-24 max-w-7xl mx-auto",
+      "gap": "gap-8 md:gap-12"
+    },
+    "style": "Strict left-alignment. IDE-feel with vertical rules (border-l border-zinc-800) for timeline and nested items."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-emerald-500 text-black font-medium hover:bg-emerald-400 transition-colors",
+      "secondary": "bg-zinc-900 text-white border border-zinc-800 hover:border-zinc-600 transition-colors",
+      "ghost": "text-zinc-400 hover:text-white transition-colors"
+    },
+    "cards": {
+      "style": "Flat background (bg-zinc-900/50), 1px solid border (border-zinc-800). No soft shadows. Sharp corners or rounded-md max.",
+      "hover": "Hover effects should slightly lighten the border (hover:border-zinc-700) or add an emerald glow."
+    },
+    "code_block": {
+      "style": "bg-black border border-zinc-800 rounded-md p-4 sm:p-6 overflow-x-auto font-mono text-sm leading-relaxed",
+      "keyword": "text-emerald-400",
+      "string": "text-amber-300",
+      "comment": "text-zinc-500"
+    },
+    "badges": {
+      "style": "px-2.5 py-0.5 rounded-full text-xs font-mono border border-zinc-800 bg-zinc-900 text-zinc-300"
+    },
+    "tabs": {
+      "style": "Shadcn tabs customized. bg-zinc-900 border-zinc-800 text-zinc-400 data-[state=active]:bg-zinc-800 data-[state=active]:text-white"
+    }
+  },
+  "media": {
+    "images": [
+      {
+        "category": "hero_background",
+        "url": "https://images.pexels.com/photos/14314636/pexels-photo-14314636.jpeg",
+        "description": "Abstract futuristic eye with complex network patterns - use at low opacity (e.g. 10-20%) blending into the dark background."
+      },
+      {
+        "category": "profile_avatar",
+        "url": "https://images.unsplash.com/photo-1510915228340-29c85a43dcfe",
+        "description": "Developer portrait male dark - to be used in an avatar or about me section if needed. Grayscale filter recommended."
+      },
+      {
+        "category": "project_thumbnail_1",
+        "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+        "description": "Data analytics dashboard for AI-Powered Sports Talent Assessment Platform."
+      },
+      {
+        "category": "project_thumbnail_2",
+        "url": "https://images.pexels.com/photos/27141316/pexels-photo-27141316.jpeg",
+        "description": "Digital interface showcasing futuristic graphs for LLM-Powered Natural Language to SQL Engine."
+      },
+      {
+        "category": "project_thumbnail_3",
+        "url": "https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86",
+        "description": "Graphical user interface for RAG-Powered Developer Documentation Assistant."
+      }
+    ]
+  },
+  "motion": {
+    "animations": {
+      "hover": "transition-all duration-200 ease-in-out",
+      "entrance": "Use Framer Motion to fade in and slide up slightly (y: 20) on scroll.",
+      "code_typing": "Optional typewriter effect for hero python class."
+    }
+  },
+  "accessibility": {
+    "contrast": "Strict APCA/WCAG AA compliance. text-zinc-400 on bg-zinc-950 is ~4.5:1, text-white is over 15:1.",
+    "testing": "All interactive elements MUST use data-testid attributes (e.g., data-testid='explore-projects-btn', data-testid='contact-form-submit').",
+    "reduced_motion": "Wrap animations in respects prefers-reduced-motion media query."
+  },
+  "instructions_to_main_agent": [
+    "Install required fonts from Google Fonts: JetBrains Mono and IBM Plex Sans.",
+    "Use Shadcn UI for Tabs, Form, Input, Textarea, Button, Badge, and Card.",
+    "Style the hero section snippet like a real code editor: line numbers on the left, syntax highlighting colors as specified in components.code_block.",
+    "Use 'Terminal/IDE' section markers: e.g. <span className='text-zinc-500'>// 01 —</span> <span className='text-emerald-400'>toolkit</span>",
+    "Maintain strict left alignment for content, leveraging a timeline vertical border for the Experience section.",
+    "Do NOT use pure gradients or purple/teal. Stick to the zinc/emerald/white palette.",
+    "Ensure the contact form posts to the backend and stores in MongoDB as per user instructions.",
+    "Add data-testid attributes to all buttons, links, inputs, and tab triggers."
+  ]
+}
